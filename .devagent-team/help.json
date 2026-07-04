@@ -1,1 +1,12 @@
-{}
+{
+  "SCRUM-172:devagent-aman-2": {
+    "id": "SCRUM-172:devagent-aman-2",
+    "ticket": "SCRUM-172",
+    "asker": "devagent-aman-2",
+    "question": "Stuck on SCRUM-172: Blocked on dependencies that must land first: SCRUM-165, SCRUM-166, SCRUM-167, SCRUM-168, SCRUM-169, SCRUM-170",
+    "context": "scripts/e2e.sh exercising full happy path with curl and assertions\nDeliver: scripts/e2e.sh exercising full happy path with curl and assertions\nAcceptance criteria:\nscripts/e2e.sh exercising full happy path with curl and assertions works end to end\ncovered by an automated test\n\nTEAM SKILLS & LESSONS (honour these):\n- Every http.Server literal must set both ReadTimeout and WriteTimeout in addition to ReadHeaderTimeout.: Search for `http.Server{` in all Go files and verify each instance explicitly sets `ReadTimeout`, `WriteTimeout`, and `ReadHeaderTimeout`. A server with only `ReadHeaderTimeout` is vulnerable to slow-body attacks (e.g. Slowloris on POST endpoints) once non-trivial routes are added. Acceptable values are context-dependent but 10\u201330s is a reasonable default; the key requirement is that all three fie\n- Every http.Server literal must set ReadTimeout and WriteTimeout in addition to ReadHeaderTimeout.: Search for `http.Server{` in all Go files and verify that each struct literal includes explicit `ReadTimeout` and `WriteTimeout` fields (not just `ReadHeaderTimeout`). ReadHeaderTimeout alone does not protect against slow-body attacks such as Slowloris on POST/PUT endpoints; both timeouts must be present regardless of current route count, since routes are added over time.\n\n",
+    "asked": 1783195794.773777,
+    "answer": null,
+    "answered_by": null
+  }
+}
