@@ -8,7 +8,7 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783199021.152274
+    "updated_at": 1783199092.44835
   },
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
@@ -16,9 +16,9 @@
     "ticket": "SCRUM-171",
     "repo": "aman90291/ridenow-service",
     "phase": "phase1_ingestion",
-    "status": "scoped",
+    "status": "approved",
     "summary": "SQLite persistence via modernc.org/sqlite (pure-Go, no CGO)",
     "capacity": 20.0,
-    "updated_at": 1783198721.229714
+    "updated_at": 1783199089.038035
   }
 }
