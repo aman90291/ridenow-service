@@ -7,10 +7,29 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
+	"strings"
 	"testing"
 
 	"github.com/ridenow/ridenow/internal/db"
 )
+
+// newTestServer wires a Server over a fresh, migrated file-backed SQLite
+// database in a temp dir. A file DSN avoids the modernc :memory: trap where
+// each pooled connection would otherwise see its own separate database.
+func newTestServer(t *testing.T) *Server {
+	t.Helper()
+	dsn := "file:" + filepath.Join(t.TempDir(), "ridenow-test.db")
+	database, err := db.Open(dsn)
+	if err != nil {
+		t.Fatalf("open db: %v", err)
+	}
+	t.Cleanup(func() { database.Close() })
+
+	if err := db.Migrate(context.Background(), database); err != nil {
+		t.Fatalf("migrate: %v", err)
+	}
+	return New(database)
+}
 
 func TestHealthzOK(t *testing.T) {
 	database, err := db.Open(":memory:")
@@ -42,20 +61,7 @@ func TestHealthzOK(t *testing.T) {
 }
 
 func TestRidesEndToEnd(t *testing.T) {
-	// A file DSN avoids the modernc :memory: trap where each pooled
-	// connection would otherwise see its own separate database.
-	dsn := "file:" + filepath.Join(t.TempDir(), "ridenow-test.db")
-	database, err := db.Open(dsn)
-	if err != nil {
-		t.Fatalf("open db: %v", err)
-	}
-	t.Cleanup(func() { database.Close() })
-
-	if err := db.Migrate(context.Background(), database); err != nil {
-		t.Fatalf("migrate: %v", err)
-	}
-
-	srv := New(database)
+	srv := newTestServer(t)
 
 	// Create a ride.
 	payload := `{"rider":"alice","origin":"downtown","destination":"airport"}`
@@ -101,18 +107,7 @@ func TestRidesEndToEnd(t *testing.T) {
 }
 
 func TestGetRideNotFound(t *testing.T) {
-	dsn := "file:" + filepath.Join(t.TempDir(), "ridenow-test.db")
-	database, err := db.Open(dsn)
-	if err != nil {
-		t.Fatalf("open db: %v", err)
-	}
-	t.Cleanup(func() { database.Close() })
-
-	if err := db.Migrate(context.Background(), database); err != nil {
-		t.Fatalf("migrate: %v", err)
-	}
-
-	srv := New(database)
+	srv := newTestServer(t)
 
 	req := httptest.NewRequest(http.MethodGet, "/rides/does-not-exist", nil)
 	rec := httptest.NewRecorder()
@@ -120,5 +115,56 @@ func TestGetRideNotFound(t *testing.T) {
 
 	if rec.Code != http.StatusNotFound {
 		t.Fatalf("get unknown status: got %d, want %d", rec.Code, http.StatusNotFound)
+	}
+}
+
+// TestCreateRideRejectsInvalidBody proves that missing/blank required fields,
+// malformed JSON, and attempts to set server-owned fields (id/status/
+// created_at) are rejected with 400 rather than persisted.
+func TestCreateRideRejectsInvalidBody(t *testing.T) {
+	srv := newTestServer(t)
+
+	cases := []struct {
+		name    string
+		payload string
+	}{
+		{"empty object", `{}`},
+		{"blank rider", `{"rider":"","origin":"downtown","destination":"airport"}`},
+		{"blank origin", `{"rider":"alice","origin":"","destination":"airport"}`},
+		{"blank destination", `{"rider":"alice","origin":"downtown","destination":""}`},
+		{"malformed json", `{`},
+		{"server-owned status", `{"rider":"alice","origin":"downtown","destination":"airport","status":"completed"}`},
+		{"server-owned id", `{"rider":"alice","origin":"downtown","destination":"airport","id":"forged"}`},
+		{"server-owned created_at", `{"rider":"alice","origin":"downtown","destination":"airport","created_at":"1999-01-01T00:00:00Z"}`},
+	}
+
+	for _, tc := range cases {
+		t.Run(tc.name, func(t *testing.T) {
+			req := httptest.NewRequest(http.MethodPost, "/rides", bytes.NewBufferString(tc.payload))
+			req.Header.Set("Content-Type", "application/json")
+			rec := httptest.NewRecorder()
+			srv.ServeHTTP(rec, req)
+
+			if rec.Code != http.StatusBadRequest {
+				t.Fatalf("status: got %d, want %d", rec.Code, http.StatusBadRequest)
+			}
+		})
+	}
+}
+
+// TestCreateRideRejectsOversizedBody proves the create endpoint bounds the
+// request body to guard against a large-payload denial of service.
+func TestCreateRideRejectsOversizedBody(t *testing.T) {
+	srv := newTestServer(t)
+
+	huge := strings.Repeat("a", maxCreateRideBody+1)
+	payload := `{"rider":"` + huge + `","origin":"downtown","destination":"airport"}`
+	req := httptest.NewRequest(http.MethodPost, "/rides", bytes.NewBufferString(payload))
+	req.Header.Set("Content-Type", "application/json")
+	rec := httptest.NewRecorder()
+	srv.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusBadRequest {
+		t.Fatalf("status: got %d, want %d", rec.Code, http.StatusBadRequest)
 	}
 }
