@@ -8,17 +8,17 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783195360.113651
+    "updated_at": 1783195435.913462
   },
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
-    "ticket": "",
+    "ticket": "SCRUM-172",
     "repo": null,
-    "phase": "",
-    "status": "",
-    "summary": "",
+    "phase": "phase1_ingestion",
+    "status": "new",
+    "summary": "scripts/e2e.sh exercising full happy path with curl and assertions",
     "capacity": 20.0,
-    "updated_at": 1783195360.2374349
+    "updated_at": 1783195372.732267
   }
 }
