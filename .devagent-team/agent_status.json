@@ -8,17 +8,17 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783199092.44835
+    "updated_at": 1783199164.6173701
   },
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
-    "ticket": "SCRUM-171",
+    "ticket": "SCRUM-165",
     "repo": "aman90291/ridenow-service",
-    "phase": "phase1_ingestion",
-    "status": "approved",
-    "summary": "SQLite persistence via modernc.org/sqlite (pure-Go, no CGO)",
+    "phase": "phase2_proposal",
+    "status": "scoped",
+    "summary": "Rider and driver signup/login with phone+password, returning JWT",
     "capacity": 20.0,
-    "updated_at": 1783199089.038035
+    "updated_at": 1783199120.948098
   }
 }
