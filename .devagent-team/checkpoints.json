@@ -78,5 +78,15 @@
     "repo": "aman90291/ridenow-service",
     "phase": "phase2_proposal",
     "pr_number": null
+  },
+  "SCRUM-167": {
+    "ticket": "SCRUM-167",
+    "agent": "devagent-aman-2",
+    "updated": 1783198693.198499,
+    "branch": "feature/SCRUM-167",
+    "base_branch": "main",
+    "repo": "aman90291/ridenow-service",
+    "phase": "phase2_proposal",
+    "pr_number": null
   }
 }
