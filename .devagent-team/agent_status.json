@@ -8,17 +8,17 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783194396.1574101
+    "updated_at": 1783194472.263108
   },
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
-    "ticket": "SCRUM-163",
+    "ticket": "SCRUM-165",
     "repo": null,
     "phase": "phase2_proposal",
-    "status": "done",
-    "summary": "Build RideNow \u2014 local-testable ride-hailing platform (vision)",
+    "status": "new",
+    "summary": "Rider and driver signup/login with phone+password, returning JWT",
     "capacity": 20.0,
-    "updated_at": 1783194347.155102
+    "updated_at": 1783194478.256855
   }
 }
