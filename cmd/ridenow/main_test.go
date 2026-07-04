@@ -61,7 +61,17 @@ func waitForListen(t *testing.T, addr string, timeout time.Duration) {
 // TestRunGracefulShutdown is the happy path: run() opens the database, applies
 // the schema, serves HTTP, and then returns nil once it receives SIGTERM.
 func TestRunGracefulShutdown(t *testing.T) {
-	const addr = "127.0.0.1:38571"
+	// Bind an ephemeral port and hand run() the real address so a port already
+	// taken on a CI host (parallel job, leftover process) can't make run() exit
+	// early and mask the real failure behind a misleading assertion.
+	ln, err := net.Listen("tcp", "127.0.0.1:0")
+	if err != nil {
+		t.Fatalf("reserve ephemeral port: %v", err)
+	}
+	addr := ln.Addr().String()
+	if err := ln.Close(); err != nil {
+		t.Fatalf("release ephemeral port: %v", err)
+	}
 	t.Setenv("RIDENOW_DB_DSN", testDSN(t))
 	t.Setenv("RIDENOW_ADDR", addr)
 
