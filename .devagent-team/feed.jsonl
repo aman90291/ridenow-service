@@ -51,3 +51,5 @@
 {"ts": 1783193790.760341, "agent": "devagent-aman-2", "ticket": "SCRUM-165", "kind": "started", "text": "Started SCRUM-165 on None (branch None).", "to": null}
 {"ts": 1783193863.078791, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "yield", "text": "Yielding SCRUM-163 \u2014 already assigned to another agent.", "to": null}
 {"ts": 1783193881.503328, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "yield", "text": "Yielding SCRUM-163 \u2014 already assigned to another agent.", "to": null}
+{"ts": 1783193923.52734, "agent": "devagent-aman-2", "ticket": "SCRUM-174", "kind": "started", "text": "Resuming SCRUM-174; SCRUM-164 resolved.", "to": null}
+{"ts": 1783193957.6231968, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "yield", "text": "Yielding SCRUM-163 \u2014 already assigned to another agent.", "to": null}
