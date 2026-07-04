@@ -8,17 +8,17 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783194177.474415
+    "updated_at": 1783194250.247626
   },
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
-    "ticket": "SCRUM-167",
+    "ticket": "",
     "repo": null,
-    "phase": "phase2_proposal",
-    "status": "new",
-    "summary": "Ride request endpoint with pickup+dropoff coords and nearest-driver matching (Haversine)",
+    "phase": "",
+    "status": "",
+    "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783194183.505383
+    "updated_at": 1783194257.5787961
   }
 }
