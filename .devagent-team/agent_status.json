@@ -1,0 +1,24 @@
+{
+  "devagent-aman-1": {
+    "agent": "devagent-aman-1",
+    "account": "712020:7d1be219-f6d0-4e77-9839-b4a101fcc41d",
+    "ticket": "SCRUM-164",
+    "repo": "aman90291/ridenow-service",
+    "phase": "phase2_proposal",
+    "status": "in_review",
+    "summary": "Scaffold the Build RideNow service repository from scratch",
+    "capacity": 20.0,
+    "updated_at": 1783193327.276982
+  },
+  "devagent-aman-2": {
+    "agent": "devagent-aman-2",
+    "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
+    "ticket": "",
+    "repo": null,
+    "phase": "",
+    "status": "",
+    "summary": "",
+    "capacity": 20.0,
+    "updated_at": 1783193327.539399
+  }
+}
