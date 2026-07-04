@@ -13,12 +13,12 @@
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
-    "ticket": "SCRUM-165",
-    "repo": "aman90291/ridenow-service",
+    "ticket": "SCRUM-167",
+    "repo": null,
     "phase": "phase2_proposal",
-    "status": "approved",
-    "summary": "Rider and driver signup/login with phone+password, returning JWT",
+    "status": "new",
+    "summary": "Ride request endpoint with pickup+dropoff coords and nearest-driver matching (Haversine)",
     "capacity": 20.0,
-    "updated_at": 1783198296.3074508
+    "updated_at": 1783198326.499784
   }
 }
