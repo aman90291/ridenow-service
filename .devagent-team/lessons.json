@@ -12,7 +12,7 @@
       "security"
     ],
     "kind": "review",
-    "weight": 2.4,
+    "weight": 1.5,
     "times_applied": 0,
     "times_confirmed": 2,
     "safety_class": "guardrail",
@@ -35,7 +35,7 @@
       "security"
     ],
     "kind": "review",
-    "weight": 2.4,
+    "weight": 1.5,
     "times_applied": 0,
     "times_confirmed": 2,
     "safety_class": "guardrail",
