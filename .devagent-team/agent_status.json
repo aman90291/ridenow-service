@@ -8,17 +8,17 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783196953.00446
+    "updated_at": 1783197022.746836
   },
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
     "ticket": "SCRUM-168",
-    "repo": null,
+    "repo": "aman90291/ridenow-service",
     "phase": "phase1_ingestion",
-    "status": "new",
+    "status": "approved",
     "summary": "Trip state machine: requested \u2192 accepted \u2192 started \u2192 completed",
     "capacity": 20.0,
-    "updated_at": 1783196496.832614
+    "updated_at": 1783197005.857322
   }
 }
