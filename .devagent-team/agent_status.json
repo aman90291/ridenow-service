@@ -8,17 +8,17 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783193877.101564
+    "updated_at": 1783193951.578815
   },
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
-    "ticket": "",
+    "ticket": "SCRUM-174",
     "repo": null,
-    "phase": "",
-    "status": "",
-    "summary": "",
+    "phase": "phase1_ingestion",
+    "status": "new",
+    "summary": "Modular monolith layout: internal/auth, internal/rider, internal/driver, internal/trip",
     "capacity": 20.0,
-    "updated_at": 1783193877.113815
+    "updated_at": 1783193922.698113
   }
 }
