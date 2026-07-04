@@ -8,17 +8,17 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783196070.364917
+    "updated_at": 1783196143.02117
   },
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
     "ticket": "SCRUM-173",
-    "repo": null,
+    "repo": "aman90291/ridenow-service",
     "phase": "phase1_ingestion",
-    "status": "new",
+    "status": "approved",
     "summary": "Go unit tests for matching logic and fare calculation",
     "capacity": 20.0,
-    "updated_at": 1783195805.8352718
+    "updated_at": 1783196145.7290869
   }
 }
