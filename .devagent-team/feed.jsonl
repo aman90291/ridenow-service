@@ -1,0 +1,38 @@
+{"ts": 1783191360.452968, "agent": "devagent-aman-2", "ticket": "SCRUM-163", "kind": "blocked", "text": "Blocked: awaiting_human:prd_signoff", "to": null}
+{"ts": 1783191360.4696598, "agent": "devagent-aman-2", "ticket": "SCRUM-163", "kind": "help_requested", "text": "Asked the fleet for help on SCRUM-163: awaiting_human:prd_signoff", "to": null}
+{"ts": 1783191384.749664, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "yield", "text": "Yielding SCRUM-163 \u2014 already assigned to another agent.", "to": null}
+{"ts": 1783191407.0034199, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "help_answered", "text": "Answered devagent-aman-2's help request on SCRUM-163.", "to": "devagent-aman-2"}
+{"ts": 1783191422.872406, "agent": "devagent-aman-2", "ticket": "SCRUM-163", "kind": "blocked", "text": "Blocked: awaiting_human:prd_signoff", "to": null}
+{"ts": 1783191654.8730292, "agent": "devagent-aman-2", "ticket": "SCRUM-163", "kind": "help_requested", "text": "Asked the fleet for help on SCRUM-163: awaiting_human:prd_signoff", "to": null}
+{"ts": 1783191714.0824552, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "yield", "text": "Yielding SCRUM-163 \u2014 already assigned to another agent.", "to": null}
+{"ts": 1783191742.4138691, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "help_answered", "text": "Answered devagent-aman-2's help request on SCRUM-163.", "to": "devagent-aman-2"}
+{"ts": 1783191811.784037, "agent": "devagent-aman-2", "ticket": "SCRUM-174", "kind": "blocked", "text": "Parked SCRUM-174; blocked by SCRUM-164.", "to": null}
+{"ts": 1783191813.710895, "agent": "devagent-aman-2", "ticket": "SCRUM-173", "kind": "blocked", "text": "Parked SCRUM-173; blocked by SCRUM-164.", "to": null}
+{"ts": 1783191815.7788439, "agent": "devagent-aman-2", "ticket": "SCRUM-172", "kind": "blocked", "text": "Parked SCRUM-172; blocked by SCRUM-164.", "to": null}
+{"ts": 1783191817.5808158, "agent": "devagent-aman-2", "ticket": "SCRUM-171", "kind": "blocked", "text": "Parked SCRUM-171; blocked by SCRUM-164.", "to": null}
+{"ts": 1783191819.830713, "agent": "devagent-aman-2", "ticket": "SCRUM-170", "kind": "blocked", "text": "Parked SCRUM-170; blocked by SCRUM-164.", "to": null}
+{"ts": 1783191821.8651898, "agent": "devagent-aman-2", "ticket": "SCRUM-169", "kind": "blocked", "text": "Parked SCRUM-169; blocked by SCRUM-164.", "to": null}
+{"ts": 1783191823.898868, "agent": "devagent-aman-2", "ticket": "SCRUM-168", "kind": "blocked", "text": "Parked SCRUM-168; blocked by SCRUM-164.", "to": null}
+{"ts": 1783191825.953218, "agent": "devagent-aman-2", "ticket": "SCRUM-167", "kind": "blocked", "text": "Parked SCRUM-167; blocked by SCRUM-164.", "to": null}
+{"ts": 1783191827.873066, "agent": "devagent-aman-2", "ticket": "SCRUM-166", "kind": "blocked", "text": "Parked SCRUM-166; blocked by SCRUM-164.", "to": null}
+{"ts": 1783191830.633774, "agent": "devagent-aman-2", "ticket": "SCRUM-165", "kind": "blocked", "text": "Parked SCRUM-165; blocked by SCRUM-164.", "to": null}
+{"ts": 1783191869.590154, "agent": "devagent-aman-1", "ticket": "SCRUM-164", "kind": "started", "text": "Started SCRUM-164 on None (branch None).", "to": null}
+{"ts": 1783191870.646147, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "yield", "text": "Yielding SCRUM-163 \u2014 already assigned to another agent.", "to": null}
+{"ts": 1783191870.657036, "agent": "devagent-aman-1", "ticket": "SCRUM-174", "kind": "yield", "text": "Yielding SCRUM-174 to devagent-aman-2 (already in progress).", "to": "devagent-aman-2"}
+{"ts": 1783191870.667126, "agent": "devagent-aman-1", "ticket": "SCRUM-173", "kind": "yield", "text": "Yielding SCRUM-173 to devagent-aman-2 (already in progress).", "to": "devagent-aman-2"}
+{"ts": 1783191870.678918, "agent": "devagent-aman-1", "ticket": "SCRUM-172", "kind": "yield", "text": "Yielding SCRUM-172 to devagent-aman-2 (already in progress).", "to": "devagent-aman-2"}
+{"ts": 1783191870.6896079, "agent": "devagent-aman-1", "ticket": "SCRUM-171", "kind": "yield", "text": "Yielding SCRUM-171 to devagent-aman-2 (already in progress).", "to": "devagent-aman-2"}
+{"ts": 1783191870.695321, "agent": "devagent-aman-1", "ticket": "SCRUM-170", "kind": "yield", "text": "Yielding SCRUM-170 to devagent-aman-2 (already in progress).", "to": "devagent-aman-2"}
+{"ts": 1783191870.7026591, "agent": "devagent-aman-1", "ticket": "SCRUM-169", "kind": "yield", "text": "Yielding SCRUM-169 to devagent-aman-2 (already in progress).", "to": "devagent-aman-2"}
+{"ts": 1783191870.707532, "agent": "devagent-aman-1", "ticket": "SCRUM-168", "kind": "yield", "text": "Yielding SCRUM-168 to devagent-aman-2 (already in progress).", "to": "devagent-aman-2"}
+{"ts": 1783191870.71485, "agent": "devagent-aman-1", "ticket": "SCRUM-167", "kind": "yield", "text": "Yielding SCRUM-167 to devagent-aman-2 (already in progress).", "to": "devagent-aman-2"}
+{"ts": 1783191870.720312, "agent": "devagent-aman-1", "ticket": "SCRUM-166", "kind": "yield", "text": "Yielding SCRUM-166 to devagent-aman-2 (already in progress).", "to": "devagent-aman-2"}
+{"ts": 1783191870.72398, "agent": "devagent-aman-1", "ticket": "SCRUM-165", "kind": "yield", "text": "Yielding SCRUM-165 to devagent-aman-2 (already in progress).", "to": "devagent-aman-2"}
+{"ts": 1783191934.256424, "agent": "devagent-aman-1", "ticket": "SCRUM-164", "kind": "started", "text": "Started SCRUM-164 on None (branch None).", "to": null}
+{"ts": 1783191934.6325278, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "yield", "text": "Yielding SCRUM-163 \u2014 already assigned to another agent.", "to": null}
+{"ts": 1783193048.325245, "agent": "devagent-aman-1", "ticket": "SCRUM-164", "kind": "started", "text": "Started SCRUM-164 on None (branch None).", "to": null}
+{"ts": 1783193048.673832, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "yield", "text": "Yielding SCRUM-163 \u2014 already assigned to another agent.", "to": null}
+{"ts": 1783193112.370327, "agent": "devagent-aman-1", "ticket": "SCRUM-164", "kind": "started", "text": "Started SCRUM-164 on None (branch None).", "to": null}
+{"ts": 1783193112.756012, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "yield", "text": "Yielding SCRUM-163 \u2014 already assigned to another agent.", "to": null}
+{"ts": 1783193327.274036, "agent": "devagent-aman-1", "ticket": "SCRUM-164", "kind": "started", "text": "Started SCRUM-164 on aman90291/ridenow-service (branch chore/scaffold-SCRUM-164).", "to": null}
+{"ts": 1783193327.622874, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "yield", "text": "Yielding SCRUM-163 \u2014 already assigned to another agent.", "to": null}
