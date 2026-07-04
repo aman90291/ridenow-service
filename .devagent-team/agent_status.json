@@ -13,12 +13,12 @@
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
-    "ticket": "SCRUM-168",
-    "repo": "aman90291/ridenow-service",
+    "ticket": "SCRUM-169",
+    "repo": null,
     "phase": "phase1_ingestion",
-    "status": "approved",
-    "summary": "Trip state machine: requested \u2192 accepted \u2192 started \u2192 completed",
+    "status": "new",
+    "summary": "Fare estimate on request and final fare on completion (base + per-km rate)",
     "capacity": 20.0,
-    "updated_at": 1783197005.857322
+    "updated_at": 1783197031.612772
   }
 }
