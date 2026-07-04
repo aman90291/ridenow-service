@@ -139,3 +139,9 @@
 {"ts": 1783198062.069984, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "yield", "text": "Yielding SCRUM-163 \u2014 already assigned to another agent.", "to": null}
 {"ts": 1783198132.536438, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "yield", "text": "Yielding SCRUM-163 \u2014 already assigned to another agent.", "to": null}
 {"ts": 1783198207.75424, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "yield", "text": "Yielding SCRUM-163 \u2014 already assigned to another agent.", "to": null}
+{"ts": 1783198296.2943602, "agent": "devagent-aman-2", "ticket": "SCRUM-165", "kind": "plan", "text": "Posted implementation plan for SCRUM-165; awaiting approval.", "to": null}
+{"ts": 1783198296.294882, "agent": "devagent-aman-2", "ticket": "SCRUM-165", "kind": "approved", "text": "SCRUM-165 approved \u2014 implementing now.", "to": null}
+{"ts": 1783198311.017969, "agent": "devagent-aman-2", "ticket": "SCRUM-165", "kind": "blocked", "text": "Blocked: Blocked on dependencies that must land first: SCRUM-174", "to": null}
+{"ts": 1783198311.054558, "agent": "devagent-aman-2", "ticket": "SCRUM-165", "kind": "help_requested", "text": "Asked the fleet for help on SCRUM-165: Blocked on dependencies that must land first: SCRUM-174", "to": null}
+{"ts": 1783198312.708703, "agent": "devagent-aman-1", "ticket": "SCRUM-165", "kind": "blocked", "text": "Parked SCRUM-165; blocked by SCRUM-174.", "to": null}
+{"ts": 1783198313.163, "agent": "devagent-aman-1", "ticket": "SCRUM-163", "kind": "yield", "text": "Yielding SCRUM-163 \u2014 already assigned to another agent.", "to": null}
