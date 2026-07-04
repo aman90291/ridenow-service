@@ -8,17 +8,17 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783195727.684143
+    "updated_at": 1783195800.12195
   },
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
-    "ticket": "SCRUM-172",
-    "repo": "aman90291/ridenow-service",
+    "ticket": "SCRUM-173",
+    "repo": null,
     "phase": "phase1_ingestion",
-    "status": "approved",
-    "summary": "scripts/e2e.sh exercising full happy path with curl and assertions",
+    "status": "new",
+    "summary": "Go unit tests for matching logic and fare calculation",
     "capacity": 20.0,
-    "updated_at": 1783195770.860641
+    "updated_at": 1783195805.8352718
   }
 }
