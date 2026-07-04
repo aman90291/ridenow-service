@@ -8,17 +8,17 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783193404.826132
+    "updated_at": 1783193621.714727
   },
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
-    "ticket": "SCRUM-165",
+    "ticket": "SCRUM-169",
     "repo": null,
     "phase": "phase1_ingestion",
     "status": "new",
-    "summary": "Rider and driver signup/login with phone+password, returning JWT",
+    "summary": "Fare estimate on request and final fare on completion (base + per-km rate)",
     "capacity": 20.0,
-    "updated_at": 1783193505.511922
+    "updated_at": 1783193632.3755221
   }
 }
