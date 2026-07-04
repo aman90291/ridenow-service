@@ -14,11 +14,11 @@
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
     "ticket": "SCRUM-169",
-    "repo": null,
+    "repo": "aman90291/ridenow-service",
     "phase": "phase1_ingestion",
-    "status": "new",
+    "status": "approved",
     "summary": "Fare estimate on request and final fare on completion (base + per-km rate)",
     "capacity": 20.0,
-    "updated_at": 1783197031.612772
+    "updated_at": 1783197387.367274
   }
 }
