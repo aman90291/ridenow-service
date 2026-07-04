@@ -1,4 +1,15 @@
 {
+  "devagent-aman-2": {
+    "agent": "devagent-aman-2",
+    "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
+    "ticket": "",
+    "repo": null,
+    "phase": "",
+    "status": "",
+    "summary": "",
+    "capacity": 20.0,
+    "updated_at": 1783199518.352362
+  },
   "devagent-aman-1": {
     "agent": "devagent-aman-1",
     "account": "712020:7d1be219-f6d0-4e77-9839-b4a101fcc41d",
@@ -8,17 +19,6 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783199238.826045
-  },
-  "devagent-aman-2": {
-    "agent": "devagent-aman-2",
-    "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
-    "ticket": "SCRUM-165",
-    "repo": "aman90291/ridenow-service",
-    "phase": "phase2_proposal",
-    "status": "scoped",
-    "summary": "Rider and driver signup/login with phone+password, returning JWT",
-    "capacity": 20.0,
-    "updated_at": 1783199120.948098
+    "updated_at": 1783199519.377475
   }
 }
