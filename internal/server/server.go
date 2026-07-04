@@ -11,6 +11,10 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/ridenow/ridenow/internal/auth"
+	"github.com/ridenow/ridenow/internal/driver"
+	"github.com/ridenow/ridenow/internal/rider"
+	"github.com/ridenow/ridenow/internal/trip"
 )
 
 // Server holds application dependencies and the HTTP router.
@@ -41,6 +45,11 @@ func (s *Server) routes() {
 	s.router.Use(middleware.Recoverer)
 
 	s.router.Get("/healthz", s.handleHealth)
+
+	s.router.Route("/auth", auth.New(s.db).Routes)
+	s.router.Route("/riders", rider.New(s.db).Routes)
+	s.router.Route("/drivers", driver.New(s.db).Routes)
+	s.router.Route("/trips", trip.New(s.db).Routes)
 }
 
 type healthResponse struct {
