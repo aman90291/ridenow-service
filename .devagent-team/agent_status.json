@@ -8,17 +8,17 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783193951.578815
+    "updated_at": 1783194026.50733
   },
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
-    "ticket": "SCRUM-174",
+    "ticket": "SCRUM-167",
     "repo": null,
-    "phase": "phase1_ingestion",
+    "phase": "phase2_proposal",
     "status": "new",
-    "summary": "Modular monolith layout: internal/auth, internal/rider, internal/driver, internal/trip",
+    "summary": "Ride request endpoint with pickup+dropoff coords and nearest-driver matching (Haversine)",
     "capacity": 20.0,
-    "updated_at": 1783193922.698113
+    "updated_at": 1783194030.506916
   }
 }
