@@ -8,17 +8,17 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783194545.3490639
+    "updated_at": 1783194617.4327948
   },
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
-    "ticket": "SCRUM-163",
+    "ticket": "SCRUM-169",
     "repo": null,
-    "phase": "phase2_proposal",
-    "status": "done",
-    "summary": "Build RideNow \u2014 local-testable ride-hailing platform (vision)",
+    "phase": "phase1_ingestion",
+    "status": "new",
+    "summary": "Fare estimate on request and final fare on completion (base + per-km rate)",
     "capacity": 20.0,
-    "updated_at": 1783194525.405478
+    "updated_at": 1783194625.606536
   }
 }
