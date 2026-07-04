@@ -22,7 +22,7 @@ func main() {
 }
 
 func run() error {
-	dsn := getenv("RIDENOW_DB_DSN", "ridenow.db")
+	dsn := getenv("RIDENOW_DB_DSN", "file:ridenow.db?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)")
 	addr := getenv("RIDENOW_ADDR", ":8080")
 
 	database, err := db.Open(dsn)
@@ -30,6 +30,14 @@ func run() error {
 		return err
 	}
 	defer database.Close()
+
+	// Apply the schema before serving so the service never runs against an
+	// unmigrated database. Migrate is idempotent and safe to re-run.
+	migrateCtx, cancelMigrate := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancelMigrate()
+	if err := db.Migrate(migrateCtx, database); err != nil {
+		return err
+	}
 
 	srv := &http.Server{
 		Addr:              addr,
