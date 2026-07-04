@@ -8,17 +8,17 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783197694.3463192
+    "updated_at": 1783197840.952563
   },
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
-    "ticket": "SCRUM-171",
+    "ticket": "",
     "repo": null,
-    "phase": "phase1_ingestion",
-    "status": "new",
-    "summary": "SQLite persistence via modernc.org/sqlite (pure-Go, no CGO)",
+    "phase": "",
+    "status": "",
+    "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783197665.5682828
+    "updated_at": 1783197841.9722009
   }
 }
