@@ -18,7 +18,7 @@ import (
 // each pooled connection would otherwise see its own separate database.
 func newTestServer(t *testing.T) *Server {
 	t.Helper()
-	dsn := "file:" + filepath.Join(t.TempDir(), "ridenow-test.db")
+	dsn := "file:" + filepath.Join(t.TempDir(), "ridenow-test.db") + "?_pragma=journal_mode(WAL)&_pragma=busy_timeout(5000)"
 	database, err := db.Open(dsn)
 	if err != nil {
 		t.Fatalf("open db: %v", err)
