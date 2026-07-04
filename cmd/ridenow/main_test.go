@@ -3,6 +3,7 @@ package main
 import (
 	"net"
 	"os"
+	"os/signal"
 	"path/filepath"
 	"syscall"
 	"testing"
@@ -90,6 +91,16 @@ func TestRunGracefulShutdown(t *testing.T) {
 		t.Fatalf("run() exited before shutdown was requested: %v", err)
 	default:
 	}
+
+	// Safety net: subscribe to SIGTERM in the test before sending it. Registering
+	// any handler disables SIGTERM's default (terminate) disposition for the whole
+	// test binary, so if run()'s "install handler before listening" ordering ever
+	// regresses, the stray SIGTERM is absorbed here instead of aborting the entire
+	// test process. The regression then surfaces cleanly as the 15s timeout below
+	// rather than a confusing "tests aborted".
+	safety := make(chan os.Signal, 1)
+	signal.Notify(safety, syscall.SIGTERM)
+	defer signal.Stop(safety)
 
 	proc, err := os.FindProcess(syscall.Getpid())
 	if err != nil {
