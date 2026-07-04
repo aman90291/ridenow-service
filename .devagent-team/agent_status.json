@@ -8,17 +8,17 @@
     "status": "",
     "summary": "",
     "capacity": 20.0,
-    "updated_at": 1783197547.846393
+    "updated_at": 1783197622.046557
   },
   "devagent-aman-2": {
     "agent": "devagent-aman-2",
     "account": "712020:73a62264-d8e3-426a-93d0-e0d6616b2472",
     "ticket": "SCRUM-170",
-    "repo": null,
+    "repo": "aman90291/ridenow-service",
     "phase": "phase1_ingestion",
-    "status": "new",
+    "status": "approved",
     "summary": "GET /healthz returning 200 JSON",
     "capacity": 20.0,
-    "updated_at": 1783197410.516276
+    "updated_at": 1783197622.9459798
   }
 }
