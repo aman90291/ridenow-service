@@ -46,6 +46,7 @@ func (s *Server) routes() {
 	s.router.Use(middleware.Recoverer)
 
 	s.router.Get("/healthz", s.handleHealth)
+	s.router.Get("/livez", s.handleLive)
 	s.router.Post("/rides", s.handleCreateRide)
 	s.router.Get("/rides/{id}", s.handleGetRide)
 }
@@ -78,6 +79,20 @@ func (s *Server) handleHealth(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(code)
 	if err := json.NewEncoder(w).Encode(resp); err != nil {
 		log.Printf("health: encode response: %v", err)
+	}
+}
+
+// handleLive is a dependency-free liveness probe. It reports only that the
+// process is running and never pings the database, so a transient DB outage
+// drains this instance from rotation via the readiness probe (/healthz) instead
+// of tripping a Kubernetes liveness probe into a restart loop that cannot heal
+// the database and only amplifies the outage. Deployments should point their
+// liveness probe at /livez and their readiness probe at /healthz.
+func (s *Server) handleLive(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	if err := json.NewEncoder(w).Encode(map[string]string{"status": "ok"}); err != nil {
+		log.Printf("live: encode response: %v", err)
 	}
 }
 
