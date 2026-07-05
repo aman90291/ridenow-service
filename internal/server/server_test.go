@@ -164,7 +164,10 @@ func TestTripsEndToEnd(t *testing.T) {
 			t.Fatalf("status: got %d, want %d", rec.Code, http.StatusUnauthorized)
 		}
 
-		// Reading a fabricated id must 404: no trip was persisted.
+		// The 401 above is what proves nothing was persisted: the request is
+		// rejected at the auth middleware before the trip handler runs, so no
+		// id is ever generated. This GET is only a sanity check that an id we
+		// never created 404s; it can't by itself establish the negative.
 		getReq := httptest.NewRequest(http.MethodGet, "/rides/should-not-exist", nil)
 		getRec := httptest.NewRecorder()
 		srv.ServeHTTP(getRec, getReq)
