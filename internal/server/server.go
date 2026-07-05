@@ -50,6 +50,12 @@ func (s *Server) routes() {
 	s.router.Get("/rides/{id}", s.handleGetRide)
 }
 
+// healthResponse is the body returned by GET /healthz, which is a combined
+// liveness+readiness probe: 200 {"status":"ok","db":"ok"} when the database is
+// reachable, 503 {"status":"degraded","db":"unreachable"} when the ping fails.
+// The two-field {status,db} schema is a locked public contract — the db field
+// is a deliberate deploy/readiness signal — so do not reduce or extend it
+// without a versioned change.
 type healthResponse struct {
 	Status string `json:"status"`
 	DB     string `json:"db"`
