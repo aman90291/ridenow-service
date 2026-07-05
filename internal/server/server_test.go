@@ -106,6 +106,89 @@ func TestRidesEndToEnd(t *testing.T) {
 	}
 }
 
+// TestTripsEndToEnd exercises the modular-monolith wiring end to end:
+// auth (transport) -> trip (domain) -> rider/driver validation -> persistence.
+// It proves the protected POST /trips endpoint enforces the bearer token at
+// the transport boundary before any trip domain code runs, persists a valid
+// request, and rejects an invalid driver id.
+func TestTripsEndToEnd(t *testing.T) {
+	srv := newTestServer(t)
+
+	t.Run("valid token creates a trip and it reads back", func(t *testing.T) {
+		req := httptest.NewRequest(http.MethodPost, "/trips", bytes.NewBufferString(`{"driver_id":"driver-1"}`))
+		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("Authorization", "Bearer rider-1")
+		rec := httptest.NewRecorder()
+		srv.ServeHTTP(rec, req)
+
+		if rec.Code != http.StatusCreated {
+			t.Fatalf("create status: got %d, want %d", rec.Code, http.StatusCreated)
+		}
+
+		var created db.Ride
+		if err := json.NewDecoder(rec.Body).Decode(&created); err != nil {
+			t.Fatalf("decode create response: %v", err)
+		}
+		if created.ID == "" {
+			t.Fatal("create: expected server-generated id, got empty")
+		}
+		// The authenticated rider comes from the token; the driver from the body.
+		if created.Rider != "rider-1" || created.Origin != "driver-1" {
+			t.Fatalf("create: unexpected persisted fields: %+v", created)
+		}
+
+		// Read the persisted trip back by id across the pooled connections.
+		getReq := httptest.NewRequest(http.MethodGet, "/rides/"+created.ID, nil)
+		getRec := httptest.NewRecorder()
+		srv.ServeHTTP(getRec, getReq)
+
+		if getRec.Code != http.StatusOK {
+			t.Fatalf("get status: got %d, want %d", getRec.Code, http.StatusOK)
+		}
+		var got db.Ride
+		if err := json.NewDecoder(getRec.Body).Decode(&got); err != nil {
+			t.Fatalf("decode get response: %v", err)
+		}
+		if got != created {
+			t.Fatalf("get: got %+v, want %+v", got, created)
+		}
+	})
+
+	t.Run("missing token is rejected before reaching the domain", func(t *testing.T) {
+		req := httptest.NewRequest(http.MethodPost, "/trips", bytes.NewBufferString(`{"driver_id":"driver-1"}`))
+		req.Header.Set("Content-Type", "application/json")
+		rec := httptest.NewRecorder()
+		srv.ServeHTTP(rec, req)
+
+		if rec.Code != http.StatusUnauthorized {
+			t.Fatalf("status: got %d, want %d", rec.Code, http.StatusUnauthorized)
+		}
+
+		// The 401 above is what proves nothing was persisted: the request is
+		// rejected at the auth middleware before the trip handler runs, so no
+		// id is ever generated. This GET is only a sanity check that an id we
+		// never created 404s; it can't by itself establish the negative.
+		getReq := httptest.NewRequest(http.MethodGet, "/rides/should-not-exist", nil)
+		getRec := httptest.NewRecorder()
+		srv.ServeHTTP(getRec, getReq)
+		if getRec.Code != http.StatusNotFound {
+			t.Fatalf("unexpected persistence after unauthenticated request: got %d", getRec.Code)
+		}
+	})
+
+	t.Run("valid token but empty driver_id is a 400", func(t *testing.T) {
+		req := httptest.NewRequest(http.MethodPost, "/trips", bytes.NewBufferString(`{"driver_id":""}`))
+		req.Header.Set("Content-Type", "application/json")
+		req.Header.Set("Authorization", "Bearer rider-1")
+		rec := httptest.NewRecorder()
+		srv.ServeHTTP(rec, req)
+
+		if rec.Code != http.StatusBadRequest {
+			t.Fatalf("status: got %d, want %d", rec.Code, http.StatusBadRequest)
+		}
+	})
+}
+
 func TestGetRideNotFound(t *testing.T) {
 	srv := newTestServer(t)
 

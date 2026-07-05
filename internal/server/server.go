@@ -13,21 +13,39 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 
+	"github.com/ridenow/ridenow/internal/auth"
 	"github.com/ridenow/ridenow/internal/db"
+	"github.com/ridenow/ridenow/internal/driver"
+	"github.com/ridenow/ridenow/internal/rider"
+	"github.com/ridenow/ridenow/internal/trip"
 )
 
-// Server holds application dependencies and the HTTP router.
+// Server holds application dependencies and the HTTP router. It is the
+// composition root of the modular monolith: it owns the shared *sql.DB pool
+// and constructs each bounded-context service (auth at the transport edge;
+// rider, driver, and trip in the domain).
 type Server struct {
 	db     *sql.DB
 	store  *db.Store
+	auth   *auth.Service
+	rider  *rider.Service
+	driver *driver.Service
+	trip   *trip.Service
 	router chi.Router
 }
 
 // New constructs a Server with middleware and routes wired up.
 func New(database *sql.DB) *Server {
+	store := db.NewStore(database)
+	r := rider.New()
+	d := driver.New()
 	s := &Server{
 		db:     database,
-		store:  db.NewStore(database),
+		store:  store,
+		auth:   auth.New(),
+		rider:  r,
+		driver: d,
+		trip:   trip.New(store, r, d),
 		router: chi.NewRouter(),
 	}
 	s.routes()
@@ -48,6 +66,14 @@ func (s *Server) routes() {
 	s.router.Get("/healthz", s.handleHealth)
 	s.router.Post("/rides", s.handleCreateRide)
 	s.router.Get("/rides/{id}", s.handleGetRide)
+
+	// Protected routes: auth.Middleware validates the bearer token and injects
+	// the caller identity before any trip domain code runs, enforcing auth at
+	// the transport boundary.
+	s.router.Group(func(r chi.Router) {
+		r.Use(auth.Middleware(s.auth))
+		r.Post("/trips", s.handleCreateTrip)
+	})
 }
 
 type healthResponse struct {
@@ -126,6 +152,56 @@ func (s *Server) handleCreateRide(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusCreated)
 	if err := json.NewEncoder(w).Encode(created); err != nil {
 		log.Printf("rides: encode response: %v", err)
+	}
+}
+
+// createTripRequest is the client-supplied payload for POST /trips. The rider
+// identity is not accepted from the body: it is resolved from the bearer token
+// by auth.Middleware, so a client cannot request a trip on another rider's
+// behalf.
+type createTripRequest struct {
+	DriverID string `json:"driver_id"`
+}
+
+// handleCreateTrip requests a trip for the authenticated rider. The rider id
+// comes from the request context (populated by auth.Middleware); only the
+// driver id is read from the body. It delegates rider/driver validation and
+// persistence to the trip service and maps domain validation errors to 400.
+func (s *Server) handleCreateTrip(w http.ResponseWriter, r *http.Request) {
+	riderID, ok := auth.UserIDFrom(r.Context())
+	if !ok {
+		http.Error(w, "unauthorized", http.StatusUnauthorized)
+		return
+	}
+
+	r.Body = http.MaxBytesReader(w, r.Body, maxCreateRideBody)
+
+	var req createTripRequest
+	dec := json.NewDecoder(r.Body)
+	dec.DisallowUnknownFields()
+	if err := dec.Decode(&req); err != nil {
+		http.Error(w, "invalid request body", http.StatusBadRequest)
+		return
+	}
+
+	ctx, cancel := context.WithTimeout(r.Context(), 5*time.Second)
+	defer cancel()
+
+	created, err := s.trip.Request(ctx, riderID, req.DriverID)
+	if errors.Is(err, rider.ErrInvalidRider) || errors.Is(err, driver.ErrInvalidDriver) {
+		http.Error(w, "invalid rider or driver", http.StatusBadRequest)
+		return
+	}
+	if err != nil {
+		log.Printf("trips: request: %v", err)
+		http.Error(w, "could not create trip", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusCreated)
+	if err := json.NewEncoder(w).Encode(created); err != nil {
+		log.Printf("trips: encode response: %v", err)
 	}
 }
 
