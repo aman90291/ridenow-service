@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"net/http/httptest"
 	"path/filepath"
+	"reflect"
 	"strings"
 	"testing"
 
@@ -31,6 +32,22 @@ func newTestServer(t *testing.T) *Server {
 	return New(database)
 }
 
+// assertHealthBody decodes a /healthz response body and asserts it is exactly
+// {"status":<wantStatus>,"db":<wantDB>} with no extra fields. Decoding into a
+// map (rather than the healthResponse struct, which would silently ignore
+// unexpected keys) locks the public health-check schema against silent drift.
+func assertHealthBody(t *testing.T, body []byte, wantStatus, wantDB string) {
+	t.Helper()
+	var got map[string]string
+	if err := json.Unmarshal(body, &got); err != nil {
+		t.Fatalf("decode health body: %v (body=%q)", err, body)
+	}
+	want := map[string]string{"status": wantStatus, "db": wantDB}
+	if !reflect.DeepEqual(got, want) {
+		t.Fatalf("health body: got %v, want %v", got, want)
+	}
+}
+
 func TestHealthzOK(t *testing.T) {
 	database, err := db.Open(":memory:")
 	if err != nil {
@@ -47,17 +64,39 @@ func TestHealthzOK(t *testing.T) {
 	if rec.Code != http.StatusOK {
 		t.Fatalf("status: got %d, want %d", rec.Code, http.StatusOK)
 	}
+	if ct := rec.Header().Get("Content-Type"); ct != "application/json" {
+		t.Fatalf("content-type: got %q, want %q", ct, "application/json")
+	}
+	assertHealthBody(t, rec.Body.Bytes(), "ok", "ok")
+}
 
-	var body healthResponse
-	if err := json.NewDecoder(rec.Body).Decode(&body); err != nil {
-		t.Fatalf("decode response: %v", err)
+// TestHealthzDegraded pins the readiness-failure contract: when the database
+// ping fails, /healthz returns 503 with {"status":"degraded","db":"unreachable"}.
+// Closing the *sql.DB before the request makes PingContext fail, driving the
+// degraded path without routing through the store.
+func TestHealthzDegraded(t *testing.T) {
+	database, err := db.Open(":memory:")
+	if err != nil {
+		t.Fatalf("open in-memory db: %v", err)
 	}
-	if got, want := body.Status, "ok"; got != want {
-		t.Fatalf("status field: got %q, want %q", got, want)
+
+	srv := New(database)
+
+	if err := database.Close(); err != nil {
+		t.Fatalf("close db: %v", err)
 	}
-	if got, want := body.DB, "ok"; got != want {
-		t.Fatalf("db field: got %q, want %q", got, want)
+
+	req := httptest.NewRequest(http.MethodGet, "/healthz", nil)
+	rec := httptest.NewRecorder()
+	srv.ServeHTTP(rec, req)
+
+	if rec.Code != http.StatusServiceUnavailable {
+		t.Fatalf("status: got %d, want %d", rec.Code, http.StatusServiceUnavailable)
 	}
+	if ct := rec.Header().Get("Content-Type"); ct != "application/json" {
+		t.Fatalf("content-type: got %q, want %q", ct, "application/json")
+	}
+	assertHealthBody(t, rec.Body.Bytes(), "degraded", "unreachable")
 }
 
 func TestRidesEndToEnd(t *testing.T) {
